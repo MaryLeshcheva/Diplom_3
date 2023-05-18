@@ -1,35 +1,28 @@
 import config.AppConfig;
-import expansion.WebDriverFactory;
-import generators.UserGenerator;
 import io.restassured.response.ValidatableResponse;
-import models.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import io.qameta.allure.junit4.DisplayName;
-import org.openqa.selenium.WebDriver;
 import pages.LoginPage;
 import pages.RegistrationPage;
-import webApiClients.UserClient;
+import web_api_clients.UserClient;
 
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
 
-public class RegistrationTest {
-    private WebDriver driver;
+public class RegistrationTest extends BaseTest {
+
     public RegistrationPage registrationPage;
     private LoginPage loginPage;
-    private User user;
 
     @Before
     public void setUp() {
-        driver = WebDriverFactory.get();
-        driver.navigate().to(AppConfig.REGISTRATION_URL);
+        super.setup(AppConfig.REGISTRATION_URL);
 
         loginPage = new LoginPage(driver);
         registrationPage = new RegistrationPage(driver);
-        user = UserGenerator.createDefault();
     }
 
     @Test
@@ -56,7 +49,6 @@ public class RegistrationTest {
 
     @After
     public void tearDown() {
-        System.out.print("Test is closed");
-        driver.quit();
+        super.tearDown();
     }
 }

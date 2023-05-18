@@ -1,37 +1,24 @@
 import config.AppConfig;
-import expansion.WebDriverFactory;
-import generators.UserGenerator;
-import io.restassured.response.ValidatableResponse;
-import models.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import io.qameta.allure.junit4.DisplayName;
-import org.openqa.selenium.WebDriver;
 import pages.*;
-import webApiClients.UserClient;
 
 import static org.junit.Assert.assertTrue;
 
-public class LoginTest {
-    private WebDriver driver;
+public class LoginTest extends BaseTest {
     private NavigationPanel navigationPanel;
     public RegistrationPage registrationPage;
     public MainPage mainPage;
-    private UserClient userClient;
     private ResetPasswordPage resetPasswordPage;
     private LoginPage loginPage;
-    private User user;
-    private String accessToken;
 
     @Before
     public void setUp() {
-        driver = WebDriverFactory.get();
+        super.setup("");
 
-        user = UserGenerator.createDefault();
-        userClient = new UserClient();
-        ValidatableResponse responseCreate = userClient.create(user);
-        accessToken = responseCreate.extract().path("accessToken");
+        registerUser();
 
         registrationPage = new RegistrationPage(driver);
         resetPasswordPage = new ResetPasswordPage(driver);
@@ -82,9 +69,8 @@ public class LoginTest {
 
     @After
     public void tearDown() {
-        System.out.print("Test is closed");
-        driver.quit();
+        super.tearDown();
 
-        userClient.delete(accessToken);
+        deleteUser();
     }
 }

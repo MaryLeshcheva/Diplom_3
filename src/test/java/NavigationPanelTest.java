@@ -1,41 +1,28 @@
 import config.AppConfig;
-import expansion.WebDriverFactory;
-import generators.UserGenerator;
-import io.restassured.response.ValidatableResponse;
-import models.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import io.qameta.allure.junit4.DisplayName;
-import org.openqa.selenium.WebDriver;
 import pages.LoginPage;
 import pages.MainPage;
 import pages.NavigationPanel;
 import pages.ProfilePage;
-import webApiClients.UserClient;
 
 import static org.junit.Assert.assertTrue;
 
 
-public class NavigationPanelTest {
+public class NavigationPanelTest extends BaseTest {
 
-    private WebDriver driver;
     private ProfilePage profilePage;
     private NavigationPanel navigationPanel;
     public MainPage mainPage;
-    private UserClient userClient;
     private LoginPage loginPage;
-    private User user;
-    private String accessToken;
+
     @Before
     public void setUp() {
-        driver = WebDriverFactory.get();
-        driver.navigate().to(AppConfig.LOGIN_URL);
+        super.setup(AppConfig.LOGIN_URL);
 
-        user = UserGenerator.createDefault();
-        userClient = new UserClient();
-        ValidatableResponse responseCreate = userClient.create(user);
-        accessToken = responseCreate.extract().path("accessToken");
+        registerUser();
 
         profilePage = new ProfilePage(driver);
         navigationPanel = new NavigationPanel(driver);
@@ -82,9 +69,8 @@ public class NavigationPanelTest {
 
     @After
     public void tearDown() {
-        System.out.print("Test is closed");
-        driver.quit();
+        super.tearDown();
 
-        userClient.delete(accessToken);
+        deleteUser();
     }
 }

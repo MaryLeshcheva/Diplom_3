@@ -1,5 +1,4 @@
 import config.AppConfig;
-import expansion.WebDriverFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,14 +12,13 @@ import pages.MainPage;
 import java.time.Duration;
 import static org.junit.Assert.assertNotEquals;
 
-public class ConstructorTest {
-    private WebDriver driver;
+public class ConstructorTest extends BaseTest {
+
     public MainPage mainPage;
 
     @Before
     public void setup() {
-        driver = WebDriverFactory.get();
-        driver.navigate().to(AppConfig.MAIN_URL);
+        super.setup(AppConfig.MAIN_URL);
 
         mainPage = new MainPage(driver);
     }
@@ -63,8 +61,7 @@ public class ConstructorTest {
 
     @After
     public void tearDown() {
-        System.out.print("Test is closed");
-        driver.quit();
+        super.tearDown();
     }
 
     private void waitForScrollChange(double scrollTop) {
