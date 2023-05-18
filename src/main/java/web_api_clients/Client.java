@@ -1,4 +1,4 @@
-package webApiClients;
+package web_api_clients;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
