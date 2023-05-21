@@ -29,7 +29,7 @@ public class LoginTest extends BaseTest {
 
     @Test
     @DisplayName("Авторизация по кнопке Войти в аккаунт на главной странице")
-    public void LoginWithButtonEnterAccountOnMainPage() {
+    public void loginWithButtonEnterAccountOnMainPage() {
         driver.navigate().to(AppConfig.MAIN_URL);
         mainPage.clickButtonEnterAccount();
         loginPage.login(user.getEmail(), user.getPassword());
@@ -39,7 +39,7 @@ public class LoginTest extends BaseTest {
 
     @Test
     @DisplayName("Авторизация по кнопке Личный кабинет")
-    public void LoginWithButtonPersonalAccount() {
+    public void loginWithButtonPersonalAccount() {
         driver.navigate().to(AppConfig.MAIN_URL);
         navigationPanel.clickButtonPersonalAccount();
         loginPage.login(user.getEmail(), user.getPassword());
@@ -49,7 +49,7 @@ public class LoginTest extends BaseTest {
 
     @Test
     @DisplayName("Авторизация по кнопке Войти в форме регистрации")
-    public void LoginWithButtonEnterOnRegistrationForm() {
+    public void loginWithButtonEnterOnRegistrationForm() {
         driver.navigate().to(AppConfig.REGISTRATION_URL);
         registrationPage.clickButtonEnter();
         loginPage.login(user.getEmail(), user.getPassword());
@@ -59,7 +59,7 @@ public class LoginTest extends BaseTest {
 
     @Test
     @DisplayName("Авторизация через кнопку в форме восстановления пароля")
-    public void LoginWithResetPasswordForm() {
+    public void loginWithResetPasswordForm() {
         driver.navigate().to(AppConfig.RESET_PASSWORD_URL);
         resetPasswordPage.clickButtonEnter();
         loginPage.login(user.getEmail(), user.getPassword());
